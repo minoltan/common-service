@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        .container {
+            padding: 16px;
+        }
+        span{
+            float: right;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+           <div class="container">
+            <h1>Vodafone Payment Test</h1>
+            <h1 id="response"></h1>
+            <button onclick="pay()"><img src="https://pay.mpaisa.vodafone.com.fj/assets/mpaisa-pay.png"></button>
+
+        </div>
+
+</div>
+
+<script>
+
+    function pay() {
+        url = "https://pay.mpaisa.vodafone.com.fj/API/?url=http://localhost:8090/checkout&tID=10000&amt=10.50&cID=20001&iDet=detail of item";
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(null);
+        request.onreadystatechange = processRequest;
+        function processRequest(e) {
+            if (request.readyState == 4) {
+                if (request.status == 200) {
+                    console.log("comes")
+                    // Need token verification
+                    // Append the attributes and redirect
+                    window.open("https:\\/\\/pay.mpaisa.vodafone.com.fj\\/")
+                    var response = request.responseText;
+                    let response2 = `<p>${response}</p>`
+                    document.getElementById("response").innerHTML = response2;
+                }
+                else {
+                    window.open("https://pay.mpaisa.vodafone.com.fj//?url=http://localhost:8090/home&&tID=10003&&amt=10.50&&cID=20001&&iDet=detail%20of%20item&&rID=18434")
+                    console.log("comes else")
+                    var response = request.responseText;
+                    console.log(response)
+                    let response2 = `<p>${response}</p>`
+                    document.getElementById("response").innerHTML = response2;
+                }
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

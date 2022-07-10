@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .container {
+            padding: 16px;
+        }
+        span{
+            float: right;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfqNpQgAAAAABgZ4O_tTN185xDW8gC6nu9bBQ5f"></script>
+
+    <form id="demo-form" >
+        <div class="container">
+            <h1>reCAPTCHA Test</h1>
+            <h1 id="response"></h1>
+            <button class="g-recaptcha"
+                    data-sitekey="6LfqNpQgAAAAABgZ4O_tTN185xDW8gC6nu9bBQ5f"
+                    data-callback='onSubmit'
+                    data-action='submit'>Submit</button>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    function onSubmit() {
+            grecaptcha.execute('6LfqNpQgAAAAABgZ4O_tTN185xDW8gC6nu9bBQ5f', {action:'validate_captcha'})
+                .then(function(token) {
+                    document.getElementById('g-recaptcha-response').value = token;
+                    console.log(token);
+                    saveScore(token)
+                });
+    }
+
+    function saveScore(session_token) {
+        url = "/api/v1/saveScore";
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/json');
+        let token_resource = {
+            "token": session_token
+        }
+        request.send(JSON.stringify(token_resource));
+        request.onreadystatechange = processRequest;
+        function processRequest(e) {
+            if (request.readyState == 4) {
+                if (request.status == 200) {
+                    var response = request.responseText;
+                    let response2 = `<p>${response}</p>`
+                    document.getElementById("response").innerHTML = response2;
+                }
+                else {
+                    var response = request.responseText;
+                    let response2 = `<p>${response}</p>`
+                    document.getElementById("response").innerHTML = response2;
+                }
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
