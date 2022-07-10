@@ -1,2 +1,4 @@
-package com.amitech.springcommonservice.demos.springboot;public class Temp {
+package com.amitech.springcommonservice.demos.springboot;
+
+public class Temp {
 }
