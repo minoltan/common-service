@@ -37,4 +37,14 @@ public class JavaFeatureController {
     public void withGarbageCollectionTest(){
         javaFeatureService.withGarbageCollection();
     }
+
+    @PostMapping("/palindrome/manchers")
+    public void findLongestPalindromicStringByManchersTest(@RequestParam String text){
+        javaFeatureService.findLongestPalindromicStringByManchers(text);
+    }
+
+    @PostMapping("/palindrome")
+    public void findLongestPalindromicStringTest(@RequestParam String text){
+        javaFeatureService.longestPalSubstr(text);
+    }
 }

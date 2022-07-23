@@ -4,10 +4,10 @@ import com.amitech.springcommonservice.demos.java.features.garbageCollection.Emp
 import com.amitech.springcommonservice.demos.java.features.garbageCollection.GarbageTest;
 import com.amitech.springcommonservice.demos.java.features.garbageCollection.MyCleanerTest;
 import com.amitech.springcommonservice.demos.java.features.lambdaFunction.IFunctionalInterface;
+import com.amitech.springcommonservice.demos.java.features.palindrom.Palindrome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.ref.Cleaner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +16,9 @@ public class JavaFeatureService {
 
     @Autowired
     MyCleanerTest myCleanerTest;
+
+    @Autowired
+    Palindrome palindrome;
 
     public List<Integer> getLambdaOutput(int numX, int numY){
         List<Integer> calResult = new ArrayList<>();
@@ -109,6 +112,11 @@ public class JavaFeatureService {
         // should be 4 but it will give 6 as output.
     }
 
+    public void findLongestPalindromicStringByManchers(String text){
+        palindrome.findLongestPalindromicStringByManchers(text);
+    }
 
-
+    public void longestPalSubstr(String str){
+        palindrome.longestPalSubstr(str);
+    }
 }
